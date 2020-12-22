@@ -1,6 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-# Create your views here.
+from rest_framework import viewsets
 
-def index(request):
-    return HttpResponse('hello world')
+from .serializers import TransactionSerializer
+from .models import Transaction
+
+
+class TransactionViewSet(viewsets.ModelViewSet):
+    queryset = Transaction.objects.all().order_by("trans_date")
+    serializer_class = TransactionSerializer
